@@ -1,3 +1,4 @@
+import FeaturedAnimals from "@/components/animals/FeaturedAnimals";
 import Hero from "@/components/hero/Hero";
 import Image from "next/image";
 
@@ -5,6 +6,7 @@ export default function Home() {
   return (
     <main> 
         <Hero />
+        <FeaturedAnimals />
     </main>
   );
 }
