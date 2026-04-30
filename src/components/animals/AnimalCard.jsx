@@ -1,5 +1,6 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { GiWeight } from "react-icons/gi";
+import Link from 'next/link';
 
 const AnimalCard = ({ animal }) => {
   return (
@@ -37,9 +38,13 @@ const AnimalCard = ({ animal }) => {
           <span className="text-2xl font-black text-orange-600">
             ৳{animal.price.toLocaleString()}
           </span>
-          <button className="btn btn-ghost bg-gray-900 hover:bg-orange-600 text-white rounded-2xl px-6 font-black text-xs normal-case border-none">
-            Details
-          </button>
+          
+          
+          <Link href={`/animals/${animal.id}`}>
+            <button className="btn btn-ghost bg-gray-900 hover:bg-orange-600 text-white rounded-2xl px-6 font-black text-xs normal-case border-none">
+              Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>
