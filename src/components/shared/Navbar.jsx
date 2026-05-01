@@ -98,7 +98,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            // যদি লগইন করা না থাকে
+            //
             <div className="flex gap-2">
               <Link 
                 href="/login" 

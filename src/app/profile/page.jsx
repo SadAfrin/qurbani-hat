@@ -75,8 +75,8 @@ const UserProfile = () => {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
                 <button 
-                  className="btn bg-gray-900 text-white rounded-2xl px-8 h-14 font-black hover:bg-orange-600 border-none transition-all shadow-lg"
-                  onClick={() => toast.info("Profile edit feature coming soon!")}
+                className="btn bg-gray-900 text-white rounded-2xl px-8 h-14 font-black hover:bg-orange-600 border-none transition-all shadow-lg"
+                onClick={() => router.push("/profile/update")} 
                 >
                   Edit Profile
                 </button>
