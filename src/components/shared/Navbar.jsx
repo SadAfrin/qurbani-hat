@@ -1,13 +1,32 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { GiCow } from 'react-icons/gi'; // গরুর আইকনটি ইমপোর্ট করা হলো
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { GiCow } from 'react-icons/gi';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState(null);
 
-  // Active link helper - now with background color
+  // user checking
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("currentUser");
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, [pathname]); // 
+
+  // logout
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setUser(null);
+    toast.success("Logged out successfully!");
+    router.push("/login");
+  };
+
   const isActive = (path) => 
     pathname === path 
       ? "bg-orange-50 text-orange-600 font-black" 
@@ -45,21 +64,57 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Buttons Section */}
-        <div className="navbar-end gap-2">
-          <Link 
-            href="/login" 
-            className="btn btn-ghost text-orange-600 font-bold hover:bg-orange-50 rounded-xl px-6 border-none"
-          >
-            Login
-          </Link>
-          
-          <Link 
-            href="/register" 
-            className="btn btn-ghost text-orange-600 font-bold hover:bg-orange-50 rounded-xl px-6 border-none"
-          >
-            Register
-          </Link>
+        {/* User / Auth Section */}
+        <div className="navbar-end gap-3">
+          {user ? (
+            <div className="flex items-center gap-4">
+              {/* Avatar - Left side of the group */}
+              <Link 
+                href="/profile" 
+                className="flex items-center gap-3 group hover:opacity-80 transition-opacity"
+              >
+                <div className="hidden md:block text-right">
+                  <p className="text-sm font-bold text-gray-800 leading-none">{user.name}</p>
+                  <p className="text-xs text-orange-600 font-medium">View Profile</p>
+                </div>
+                
+                <div className="avatar border-2 border-orange-500 rounded-full p-0.5 shadow-sm">
+                  <div className="w-10 h-10 rounded-full overflow-hidden">
+                    <img 
+                      alt="User Avatar" 
+                      src={user.photo || "https://i.ibb.co/mR79Y6B/user-placeholder.png"} 
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Logout Button - Right side of the group */}
+              <button 
+                onClick={handleLogout}
+                className="btn btn-sm md:btn-md bg-red-50 text-red-600 border-red-100 hover:bg-red-600 hover:text-white hover:border-red-600 rounded-xl px-5 font-bold transition-all"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            // যদি লগইন করা না থাকে
+            <div className="flex gap-2">
+              <Link 
+                href="/login" 
+                className="btn btn-ghost text-orange-600 font-bold hover:bg-orange-50 rounded-xl px-6 border-none"
+              >
+                Login
+              </Link>
+              
+              <Link 
+                href="/register" 
+                className="btn bg-orange-600 text-white font-bold hover:bg-orange-700 rounded-xl px-6 border-none shadow-md shadow-orange-200"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

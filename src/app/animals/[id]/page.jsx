@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation"; 
-import { toast } from "react-toastify"; // 
+import { toast } from "react-toastify";
 
 const AnimalDetails = () => {
   const { id } = useParams();
@@ -11,22 +11,26 @@ const AnimalDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isBooked, setIsBooked] = useState(false);
   const [user, setUser] = useState(null); 
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    // 
+    // ১. মাউন্ট সেট করা যাতে ক্লায়েন্ট সাইড রেন্ডারিং নিশ্চিত হয়
+    setHasMounted(true);
+
+    // ২. লোকাল স্টোরেজ থেকে ইউজার চেক
     const loggedInUser = localStorage.getItem("currentUser");
     
     if (!loggedInUser) {
       toast.error("Please login to see details!");
-      router.push("/login");
+      router.push("/login"); // লগইন করা না থাকলে সরাসরি পাঠিয়ে দিবে
       return;
     }
 
-    // 
+    // ৩. ইউজার থাকলে ডাটা সেট করা
     const parsedUser = JSON.parse(loggedInUser);
     setUser(parsedUser);
 
-    //
+    // ৪. এনিমেল ডাটা ফেচ করা
     fetch("/data/animals.json")
       .then((res) => res.json())
       .then((data) => {
@@ -38,7 +42,7 @@ const AnimalDetails = () => {
         console.error("Fetch error:", err);
         setLoading(false);
       });
-  }, [id, router]); // 
+  }, [id, router]);
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -48,11 +52,13 @@ const AnimalDetails = () => {
     setTimeout(() => setIsBooked(false), 5000);
   };
 
-  // 
+  // ৫. রেন্ডারিং কন্ডিশনস
+  if (!hasMounted) return null; // ব্রাউজারে মাউন্ট হওয়ার আগ পর্যন্ত কিছুই দেখাবে না
+
   if (loading)
     return <div className="text-center py-20 font-black text-2xl animate-bounce">Loading...</div>;
 
-  // 
+  // ইউজার না থাকলে কিছুই দেখাবে না (ইতিমধ্যেই তাকে রিডাইরেক্ট করা হয়েছে)
   if (!user) return null;
 
   if (!animal)
@@ -114,7 +120,7 @@ const AnimalDetails = () => {
             <form onSubmit={handleBooking} className="space-y-4">
               <input
                   type="text"
-                  defaultValue={user?.name} // ইউজারের নাম অটোমেটিক বসে যাবে
+                  defaultValue={user?.name}
                   placeholder="Full Name"
                   className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600"
                   required
@@ -122,7 +128,7 @@ const AnimalDetails = () => {
 
               <input
                   type="email"
-                  defaultValue={user?.email} // ইউজারের ইমেইল অটোমেটিক বসে যাবে
+                  defaultValue={user?.email}
                   placeholder="Email Address"
                   className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600"
                   required
