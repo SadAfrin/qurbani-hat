@@ -2,10 +2,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { signUp, authClient } from "@/lib/auth-client"; 
+// local array te save korchi apatoto
+// import { signUp, authClient } from "@/lib/auth-client"; 
+
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
 import { HiUser, HiMail, HiLockClosed, HiPhotograph } from 'react-icons/hi';
+
+import { users } from "@/lib/userData"; //local array
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -21,13 +25,14 @@ const RegisterPage = () => {
     const password = form.password.value;
     const photoUrl = form.photoUrl.value;
 
-    
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long");
+    if (password.length < 3) {
+      toast.error("Password must be at least 3 characters long");
       setLoading(false);
       return;
     }
 
+    /* 
+    // {database er part apatoto comment kore rakhtechi}
     try {
       const { data, error } = await signUp.email({
         email,
@@ -36,13 +41,33 @@ const RegisterPage = () => {
         image: photoUrl,
         callbackURL: "/login",
       });
+      
+    } catch (err) { ... }
+    */
 
-      if (error) {
-        toast.error(error.message || "Registration failed!");
-      } else {
-        toast.success("Registration successful!");
+   
+    try {
+      
+      const localUsers = JSON.parse(localStorage.getItem("local_users") || "[]");
+
+      const newUser = {
+        id: users.length + 1,
+        name,
+        email,
+        password,
+        photo: photoUrl
+      };
+
+      const updatedLocalUsers = [...localUsers, newUser];
+      localStorage.setItem("local_users", JSON.stringify(updatedLocalUsers));
+      
+      toast.success("Registration successful!");
+      
+      
+      setTimeout(() => {
         router.push("/login");
-      }
+      }, 1000);
+
     } catch (err) {
       toast.error("Something went wrong!");
       console.error(err);
@@ -52,10 +77,8 @@ const RegisterPage = () => {
   };
 
   const handleGoogleLogin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "/", 
-    });
+    // bacend disabled
+    toast.info("Google login is disabled in dummy mode.");
   };
 
   return (
