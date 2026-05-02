@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { IoChevronDownOutline } from "react-icons/io5";
 import AnimalCard from '@/components/animals/AnimalCard';
+// import animals from '@/public/data/animals.json';
 
 async function getAllAnimals() {
-  const res = await fetch('http://localhost:3000/data/animals.json', {
-    next: { revalidate: 0 } 
+  const res = await fetch(`${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/animals`, {
+    cache: 'no-store',
   });
   if (!res.ok) return [];
   return res.json();

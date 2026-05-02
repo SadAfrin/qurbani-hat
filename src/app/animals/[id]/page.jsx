@@ -21,7 +21,7 @@ const AnimalDetails = () => {
     
     if (!loggedInUser) {
       toast.error("Please login to see details!");
-      router.push("/login"); // লগইন করা না থাকলে সরাসরি পাঠিয়ে দিবে
+      router.push("/login"); 
       return;
     }
 
