@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-50 w-full mt-6 px-4">
-      <div className="max-w-7xl mx-auto navbar bg-white/30 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg px-4 md:px-8">
+      <div className="max-w-7xl mx-auto navbar bg-orange-300/30 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg px-4 md:px-8">
         
         {/* Logo Section */}
         <div className="navbar-start">

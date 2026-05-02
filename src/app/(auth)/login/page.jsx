@@ -1,16 +1,19 @@
 "use client";
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { users } from "@/lib/userData"; // local data source
+import { authClient } from "@/lib/auth-client"; 
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
+import 'animate.css';
 
 const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // Email login handler
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,122 +22,101 @@ const LoginPage = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    /* 
-    ============================================================
-    FUTURE MONGODB / API LOGIC (COMMENTED OUT)
-    ============================================================
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' }
+      const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+        callbackURL: "/", 
       });
-      const data = await response.json();
-      if (data.success) {
-        toast.success("Login Successful!");
-        router.push("/");
+
+      if (error) {
+        toast.error(`Login Failed: ${error.message || "Invalid credentials"}`);
       } else {
-        toast.error(data.message);
+        toast.success("Welcome back! Login Successful.");
+        router.push("/"); 
       }
     } catch (err) {
-      console.error(err);
-    }
-    ============================================================
-    */
-
-    // CURRENT LOCAL ARRAY LOGIC
-    try {
-      // user finding
-      const localUsers = JSON.parse(localStorage.getItem("local_users") || "[]");
-      
-      const allUsers = [...users, ...localUsers];
-
-      const emailExists = allUsers.find(u => u.email === email);
-
-      if (!emailExists) {
-        
-        toast.error("No account found! Please register first.");
-        setLoading(false);
-        return; 
-      }
-
-      
-      if (emailExists.password !== password) {
-        toast.error("Invalid password! Please try again.");
-        setLoading(false);
-        return;
-      }
-
-      
-      toast.success(`Welcome back, ${emailExists.name}!`);
-      localStorage.setItem("currentUser", JSON.stringify(emailExists));
-
-        // 
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
-      
-    } catch (err) {
-      toast.error("Something went wrong!");
+      toast.error("Database connection error");
     } finally {
       setLoading(false);
     }
   };
 
+  // Google login handler using social provider
+  const handleGoogleLogin = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/", 
+      });
+    } catch (err) {
+      toast.error("Google Authentication Failed");
+    }
+  };
+
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="max-w-md w-full bg-white/30 backdrop-blur-md border border-white/20 p-8 rounded-3xl shadow-xl">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 italic">Login to QurbanirHaT</h2>
+    <div className="min-h-[90vh] flex items-center justify-center px-4 py-12">
+      <div className="max-w-md w-full bg-orange-100 p-8 rounded-3xl shadow-2xl border border-orange-50 animate__animated animate__fadeInDown">
         
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-black text-gray-800">Login Now</h2>
+          <p className="text-gray-500 text-sm mt-2 font-medium">Access your QurbanirHaT account</p>
+        </div>
+        
+        {/* Credentials Form */}
         <form onSubmit={handleLogin} className="space-y-5">
           <div className="form-control">
-            <label className="label font-semibold text-gray-700">Email</label>
+            <label className="label font-bold text-gray-700 text-xs">Email Address</label>
             <div className="relative">
               <HiMail className="absolute left-3 top-3.5 text-gray-400 size-5" />
               <input 
                 name="email" 
                 type="email" 
                 placeholder="email@example.com" 
-                className="input input-bordered w-full pl-10 bg-white/50 rounded-xl" 
+                className="input input-bordered w-full pl-10 border-gray-200 focus:border-orange-500 rounded-xl" 
                 required 
               />
             </div>
           </div>
 
           <div className="form-control">
-            <label className="label font-semibold text-gray-700">Password</label>
+            <label className="label font-bold text-gray-700 text-xs">Password</label>
             <div className="relative">
               <HiLockClosed className="absolute left-3 top-3.5 text-gray-400 size-5" />
               <input 
                 name="password" 
                 type="password" 
                 placeholder="••••••••" 
-                className="input input-bordered w-full pl-10 bg-white/50 rounded-xl" 
+                className="input input-bordered w-full pl-10 border-gray-200 focus:border-orange-500 rounded-xl" 
                 required 
               />
             </div>
           </div>
 
           <button 
+            type="submit"
             disabled={loading} 
-            className="btn bg-orange-600 hover:bg-orange-700 border-none text-white w-full rounded-xl mt-4 font-black"
+            className="btn bg-orange-600 hover:bg-orange-700 border-none text-white w-full rounded-xl mt-4 font-black shadow-lg shadow-orange-100 transition-all"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Verifying..." : "Login"}
           </button>
         </form>
 
-        <div className="divider text-gray-400 my-6 italic">OR</div>
+        <div className="divider text-gray-400 my-6 text-[10px] font-bold uppercase tracking-widest">Or Continue With</div>
 
+        {/* Social Authentication Provider */}
         <button 
           type="button"
-          onClick={() => toast.info("Google login is currently disabled.")}
-          className="btn btn-outline border-gray-200 hover:bg-gray-50 w-full rounded-xl flex items-center gap-2 normal-case font-bold"
+          onClick={handleGoogleLogin}
+          className="btn btn-outline border-gray-200 hover:bg-orange-50 hover:text-orange-600 hover:border-orange-200 w-full rounded-xl flex items-center justify-center gap-3 normal-case font-bold transition-all"
         >
-          <FcGoogle size={24} /> Login with Google
+          <FcGoogle size={24} /> Google
         </button>
 
-        <p className="text-center mt-6 text-gray-600 font-medium">
-          New to the platform? <Link href="/register" className="text-orange-600 font-black hover:underline italic">Register Now</Link>
+        {/* Navigation Link */}
+        <p className="text-center mt-8 text-gray-600 text-sm">
+          New to the platform? <Link href="/register" className="text-orange-600 font-bold hover:underline">Register Now</Link>
         </p>
       </div>
     </div>

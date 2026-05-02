@@ -43,7 +43,7 @@ const RegisterPage = () => {
 
     return (
         <div className="min-h-[90vh] flex items-center justify-center bg-white px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-3xl shadow-2xl border border-orange-50 animate__animated animate__fadeInUp">
+            <div className="w-full max-w-md bg-orange-100 p-8 rounded-3xl shadow-2xl border border-orange-50 animate__animated animate__fadeInUp">
                 
                 {/* Title */}
                 <div className="text-center mb-8">
