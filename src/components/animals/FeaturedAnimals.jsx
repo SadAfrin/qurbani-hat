@@ -2,12 +2,13 @@
 import AnimalCard from './AnimalCard'; 
 
 async function getFeaturedAnimals() {
-  const res = await fetch('http://localhost:3000/data/animals.json', {
-    next: { revalidate: 3600 } 
-  });
+  const res = await fetch(
+    `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/animals`, 
+    { cache: 'no-store' }
+  );
   if (!res.ok) return [];
   const data = await res.json();
-  return data.filter(a => a.type === "Cow" || a.type === "Goat" || a.type === "Sheep").slice(0, 4);
+  return data.filter(a => a.type === "Cow" || a.type === "Goat" || a.type === "Sheep" || a.type === "Camel").slice(0, 4);
 }
 
 const FeaturedAnimals = async () => {

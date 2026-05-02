@@ -4,21 +4,21 @@ const TopBreeds = () => {
       name: "Sahiwal", 
       origin: "Pakistan/India", 
       trait: "High Growth", 
-      image: "https://images.unsplash.com/photo-1546445317-29f4545e9d53",
+      image: "https://cdn.bdstall.com/product-image/giant_177238.jpg",
       color: "bg-orange-100"
     },
     { 
       name: "Brahman", 
       origin: "USA", 
       trait: "Heat Tolerant", 
-      image: "https://images.unsplash.com/photo-1596733430284-f7437764b1a9",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCCMsBU-pznxFAWHySDlbZC5OHAZh86OCSOA&s",
       color: "bg-blue-100"
     },
     { 
       name: "Black Bengal", 
       origin: "Bangladesh", 
       trait: "Premium Meat", 
-      image: "https://images.unsplash.com/photo-1524024973431-2ad916746881",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSptrQWVadhtTa837LjdeN65Xsqe_3X42GdMg&s",
       color: "bg-emerald-100"
     }
   ];
@@ -38,27 +38,33 @@ const TopBreeds = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {breeds.map((breed, idx) => (
             <div key={idx} className="group relative overflow-hidden rounded-[40px] bg-white p-4 transition-all duration-500 hover:shadow-2xl border border-gray-100">
+              {/* Image Section - Badge Removed from top */}
               <div className={`relative h-64 w-full overflow-hidden rounded-[32px] ${breed.color}`}>
                 <img
                   src={breed.image}
                   alt={breed.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 right-4">
-                   <div className="badge bg-white/90 backdrop-blur-md border-none text-gray-900 font-black p-4 rounded-xl shadow-sm text-[10px]">
-                     Origin: {breed.origin}
-                   </div>
-                </div>
               </div>
 
+              {/* Content Section */}
               <div className="mt-6 px-4 pb-4">
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2">
                    <h3 className="text-3xl font-black text-gray-900 tracking-tight">{breed.name}</h3>
                    <span className="text-[10px] font-black bg-orange-600 text-white px-3 py-1 rounded-full uppercase tracking-widest">
                      {breed.trait}
                    </span>
                 </div>
-                <p className="text-gray-500 font-medium leading-relaxed">
+                
+                {/* Origin moved here under the title */}
+                <div className="flex items-center gap-2 mb-4">
+                   <span className="w-2 h-2 rounded-full bg-gray-300"></span>
+                   <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                     Origin: {breed.origin}
+                   </p>
+                </div>
+
+                <p className="text-gray-500 font-medium leading-relaxed text-sm">
                   Excellent choice for Qurbani with superior health and meat quality.
                 </p>
               </div>

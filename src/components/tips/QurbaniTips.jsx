@@ -5,22 +5,22 @@ const QurbaniTips = () => {
     {
       title: "Selection",
       desc: "Ensure the animal meets the age requirement (Cow: 2 years, Goat: 1 year) and is in perfect health.",
-      icon: <FaCheckCircle className="text-orange-500" size={24} />,
+      icon: <FaCheckCircle className="text-orange-500" size={36} />,
     },
     {
       title: "Animal Care",
       desc: "Provide sufficient water and light food a night before. Keep the animal calm and comfortable.",
-      icon: <FaHandHoldingHeart className="text-orange-500" size={24} />,
+      icon: <FaHandHoldingHeart className="text-orange-500" size={36} />,
     },
     {
       title: "Preparation",
       desc: "Use sharp tools for a quick process and follow the proper ritual facing the Qibla.",
-      icon: <FaKhanda className="text-orange-500" size={24} />,
+      icon: <FaKhanda className="text-orange-500" size={36} />,
     },
     {
       title: "Cleanliness",
       desc: "Dispose of waste in designated areas and clean the surroundings with bleaching powder.",
-      icon: <FaTrashAlt className="text-orange-500" size={24} />,
+      icon: <FaTrashAlt className="text-orange-500" size={36} />,
     },
   ];
 
