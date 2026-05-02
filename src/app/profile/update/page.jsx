@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-// import { authClient } from "@/lib/auth-client"; // Future database use
+import { authClient } from "@/lib/auth-client"; 
 
 const UpdateProfile = () => {
   const router = useRouter();
@@ -10,53 +10,58 @@ const UpdateProfile = () => {
   const [photo, setPhoto] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Fetch current session data from database
+  const { data: session, isPending: authLoading } = authClient.useSession();
+
   useEffect(() => {
-    // current user data load
-    const loggedInUser = localStorage.getItem("currentUser");
-    if (loggedInUser) {
-      const user = JSON.parse(loggedInUser);
-      setName(user.name || "");
-      setPhoto(user.photo || "");
-    } else {
-      router.push("/login");
+    if (!authLoading) {
+      if (session?.user) {
+        setName(session.user.name || "");
+        setPhoto(session.user.image || ""); // BetterAuth uses 'image' field
+      } else {
+        router.push("/login");
+      }
     }
-  }, [router]);
+  }, [session, authLoading, router]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      /* 
-      // DATABASE UPDATE CODE (Commented out for now)
-      await authClient.updateUser({
-          image: photo,
-          name: name,
+      // DATABASE UPDATE using BetterAuth
+      const { data, error } = await authClient.updateUser({
+        name: name,
+        image: photo,
       });
-      */
 
-      // LOCAL STORAGE UPDATE
-      const loggedInUser = localStorage.getItem("currentUser");
-      if (loggedInUser) {
-        const user = JSON.parse(loggedInUser);
-        const updatedUser = { ...user, name: name, photo: photo };
-        
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-        
-        toast.success("Profile updated successfully!");
-        router.push("/profile"); 
+      if (error) {
+        throw new Error(error.message);
       }
+
+      toast.success("Profile updated in database successfully!");
+      router.push("/profile"); 
+      
     } catch (error) {
-      toast.error("Update failed. Please try again.");
+      toast.error(error.message || "Update failed. Please try again.");
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
+  // Prevent flash of empty form while session is loading
+  if (authLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 flex items-center justify-center">
-      <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 w-full max-w-lg border-2 border-white animate__animated animate__backInUp">
+      <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 w-full max-w-lg border-2 border-white">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-gray-900">
             Update <span className="text-orange-600">Info</span>
@@ -73,7 +78,7 @@ const UpdateProfile = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
-              className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600 shadow-sm"
+              className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600 shadow-sm px-4"
               required
             />
           </div>
@@ -86,12 +91,12 @@ const UpdateProfile = () => {
               value={photo}
               onChange={(e) => setPhoto(e.target.value)}
               placeholder="Paste image URL here"
-              className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600 shadow-sm"
+              className="input w-full bg-gray-50 rounded-2xl border-none font-bold h-14 focus:ring-2 focus:ring-orange-600 shadow-sm px-4"
               required
             />
           </div>
 
-          {/* Preview (Optional) */}
+          {/* Preview */}
           {photo && (
             <div className="flex justify-center py-2">
                <img src={photo} alt="Preview" className="w-20 h-20 rounded-full object-cover border-2 border-orange-500" />
