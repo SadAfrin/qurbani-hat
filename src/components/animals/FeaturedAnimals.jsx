@@ -1,5 +1,5 @@
 // src/components/animals/FeaturedAnimals.jsx
-import AnimalCard from './AnimalCard'; // একই ফোল্ডারে তাই ./ ব্যবহার হয়েছে
+import AnimalCard from './AnimalCard'; 
 
 async function getFeaturedAnimals() {
   const res = await fetch('http://localhost:3000/data/animals.json', {

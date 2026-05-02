@@ -5,8 +5,8 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-100 pt-10 pb-6">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <footer className="border-t border-gray-100 pt-10 pb-6 rounded-2xl">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 bg-orange-200 bg-opacity-30 p-12 rounded-2xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           
           <div className="space-y-4">
