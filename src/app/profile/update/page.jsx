@@ -56,7 +56,7 @@ const UpdateProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 flex items-center justify-center">
-      <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 w-full max-w-lg border-2 border-white">
+      <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 w-full max-w-lg border-2 border-white animate__animated animate__backInUp">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-gray-900">
             Update <span className="text-orange-600">Info</span>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const AnimalCard = ({ animal }) => {
   return (
-    <div className="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 rounded-[32px] group overflow-hidden h-full">
+    <div className="animate__animated animate__fadeInUp card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 rounded-[32px] group overflow-hidden h-full">
       <figure className="px-4 pt-4 relative">
         <img
           src={animal.image}

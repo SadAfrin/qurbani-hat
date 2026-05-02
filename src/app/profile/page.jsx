@@ -35,7 +35,7 @@ const UserProfile = () => {
         </div>
 
         {/* Profile Card */}
-        <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border-2 border-white">
+        <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border-2 border-white animate__animated animate__backInUp">
           {/* Cover/Background Accent */}
           <div className="h-32 bg-gradient-to-r from-orange-400 to-orange-600 w-full"></div>
 

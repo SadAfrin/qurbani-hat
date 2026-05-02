@@ -14,10 +14,9 @@ const AnimalDetails = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    // ১. মাউন্ট সেট করা যাতে ক্লায়েন্ট সাইড রেন্ডারিং নিশ্চিত হয়
+    // page harai jacchilo
     setHasMounted(true);
 
-    // ২. লোকাল স্টোরেজ থেকে ইউজার চেক
     const loggedInUser = localStorage.getItem("currentUser");
     
     if (!loggedInUser) {
@@ -26,11 +25,11 @@ const AnimalDetails = () => {
       return;
     }
 
-    // ৩. ইউজার থাকলে ডাটা সেট করা
+    // for current user
     const parsedUser = JSON.parse(loggedInUser);
     setUser(parsedUser);
 
-    // ৪. এনিমেল ডাটা ফেচ করা
+    //
     fetch("/data/animals.json")
       .then((res) => res.json())
       .then((data) => {
@@ -52,13 +51,13 @@ const AnimalDetails = () => {
     setTimeout(() => setIsBooked(false), 5000);
   };
 
-  // ৫. রেন্ডারিং কন্ডিশনস
-  if (!hasMounted) return null; // ব্রাউজারে মাউন্ট হওয়ার আগ পর্যন্ত কিছুই দেখাবে না
+
+  if (!hasMounted) return null; //
 
   if (loading)
     return <div className="text-center py-20 font-black text-2xl animate-bounce">Loading...</div>;
 
-  // ইউজার না থাকলে কিছুই দেখাবে না (ইতিমধ্যেই তাকে রিডাইরেক্ট করা হয়েছে)
+  
   if (!user) return null;
 
   if (!animal)
@@ -73,7 +72,7 @@ const AnimalDetails = () => {
         {/* TOP SECTION: IMAGE + DETAILS */}
         <div className="grid md:grid-cols-2 gap-10 items-center">
             {/* IMAGE */}
-            <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+            <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white animate__animated animate__zoomIn">
               <img
                   src={animal.image}
                   alt={animal.name}

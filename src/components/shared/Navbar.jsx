@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="navbar-start">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-orange-100 p-2 rounded-xl group-hover:bg-orange-200 transition-colors">
+            <div className="bg-orange-100 p-2 rounded-xl group-hover:bg-orange-200 transition-colors animate__animated animate__pulse animate__infinite">
               <GiCow className="text-orange-600 text-2xl" /> 
             </div>
             <span className="text-2xl font-black tracking-tighter text-gray-800">
