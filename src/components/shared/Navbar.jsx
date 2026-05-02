@@ -2,29 +2,27 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { authClient } from "@/lib/auth-client"; // Use BetterAuth client
 import { GiCow } from 'react-icons/gi';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  
+  // Use BetterAuth hook to get the current session and user
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
 
-  // user checking
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("currentUser");
-    if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser));
+  // Logout handler using authClient
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
+      toast.success("Logged out successfully!");
+      router.push("/login");
+    } catch (err) {
+      toast.error("Failed to logout");
     }
-  }, [pathname]); // 
-
-  // logout
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    setUser(null);
-    toast.success("Logged out successfully!");
-    router.push("/login");
   };
 
   const isActive = (path) => 
@@ -66,30 +64,32 @@ const Navbar = () => {
 
         {/* User / Auth Section */}
         <div className="navbar-end gap-3">
-          {user ? (
+          {/* While session is loading, we can show a small loader or nothing */}
+          {isPending ? (
+            <span className="loading loading-spinner loading-sm text-orange-600"></span>
+          ) : user ? (
             <div className="flex items-center gap-4">
-              {/* Avatar - Left side of the group */}
+              {/* User Profile Info */}
               <Link 
                 href="/profile" 
                 className="flex items-center gap-3 group hover:opacity-80 transition-opacity"
               >
                 <div className="hidden md:block text-right">
                   <p className="text-sm font-bold text-gray-800 leading-none">{user.name}</p>
-                  <p className="text-xs text-orange-600 font-medium">View Profile</p>
                 </div>
                 
                 <div className="avatar border-2 border-orange-500 rounded-full p-0.5 shadow-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
+                  <div className="w-9 h-9 rounded-full overflow-hidden">
                     <img 
-                      alt="User Avatar" 
-                      src={user.photo || "https://i.ibb.co/mR79Y6B/user-placeholder.png"} 
+                      alt={user.name} 
+                      src={user.image || "https://i.ibb.co/mR79Y6B/user-placeholder.png"} 
                       className="object-cover"
                     />
                   </div>
                 </div>
               </Link>
 
-              {/* Logout Button - Right side of the group */}
+              {/* BetterAuth SignOut */}
               <button 
                 onClick={handleLogout}
                 className="btn btn-sm md:btn-md bg-red-50 text-red-600 border-red-100 hover:bg-red-600 hover:text-white hover:border-red-600 rounded-xl px-5 font-bold transition-all"
@@ -98,7 +98,6 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            //
             <div className="flex gap-2">
               <Link 
                 href="/login" 
@@ -106,7 +105,6 @@ const Navbar = () => {
               >
                 Login
               </Link>
-              
               <Link 
                 href="/register" 
                 className="btn text-orange-600 font-bold hover:bg-orange-100 rounded-xl px-6 border-none shadow-md shadow-orange-200"

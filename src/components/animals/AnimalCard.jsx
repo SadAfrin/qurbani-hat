@@ -1,8 +1,23 @@
+"use client";
 import { IoLocationOutline } from "react-icons/io5";
 import { GiWeight } from "react-icons/gi";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const AnimalCard = ({ animal }) => {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+
+  const handleDetailsClick = (e) => {
+    if (!session) {
+      e.preventDefault();
+      toast.error("Please login to see details!");
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="animate__animated animate__fadeInUp card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 rounded-[32px] group overflow-hidden h-full">
       <figure className="px-4 pt-4 relative">
@@ -11,9 +26,6 @@ const AnimalCard = ({ animal }) => {
           alt={animal.name}
           className="rounded-[24px] h-52 w-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="badge badge-ghost bg-white/80 backdrop-blur-sm absolute top-8 left-8 border-none text-orange-600 font-black text-[10px] tracking-widest uppercase py-3 px-4">
-          {animal.type}
-        </div>
       </figure>
 
       <div className="card-body p-6">
@@ -39,8 +51,7 @@ const AnimalCard = ({ animal }) => {
             ৳{animal.price.toLocaleString()}
           </span>
           
-          
-          <Link href={`/animals/${animal.id}`}>
+          <Link href={`/animals/${animal.id}`} onClick={handleDetailsClick}>
             <button className="btn btn-ghost bg-gray-900 hover:bg-orange-600 text-white rounded-2xl px-6 font-black text-xs normal-case border-none">
               Details
             </button>

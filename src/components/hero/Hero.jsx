@@ -53,7 +53,7 @@ const Hero = () => {
               </div>
 
               <div className="absolute bottom-12 right-8 bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-xl border border-white/50">
-                <p className="text-gray-800 text-2xl font-black">500+</p>
+                <p className="text-gray-800 text-2xl font-black">10+</p>
                 <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Stock Available</p>
               </div>
             </div>
