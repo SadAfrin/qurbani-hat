@@ -1,14 +1,37 @@
 // src/components/animals/FeaturedAnimals.jsx
 import AnimalCard from './AnimalCard'; 
 
+// async function getFeaturedAnimals() {
+//   const res = await fetch(
+//     `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/animals`, 
+//     { cache: 'no-store' }
+//   );
+//   if (!res.ok) return [];
+//   const data = await res.json();
+//   return data.filter(a => a.type === "Cow" || a.type === "Goat" || a.type === "Sheep" || a.type === "Camel").slice(0, 4);
+// }
+
 async function getFeaturedAnimals() {
-  const res = await fetch(
-    `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/animals`, 
-    { cache: 'no-store' }
-  );
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.filter(a => a.type === "Cow" || a.type === "Goat" || a.type === "Sheep" || a.type === "Camel").slice(0, 4);
+  const host = 'https://qurbani-hat-e7bp.vercel.app';
+
+  try {
+    const res = await fetch(`${host}/api/animals`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) return [];
+
+    const data = await res.json();
+
+    // Cow, Goat, Sheep, বা Camel ফিল্টার করে প্রথম ৪টি ডাটা নেওয়া হচ্ছে
+    return data
+      .filter(a => ["Cow", "Goat", "Sheep", "Camel"].includes(a.type))
+      .slice(0, 4);
+      
+  } catch (error) {
+    console.error("Error fetching featured animals:", error);
+    return [];
+  }
 }
 
 const FeaturedAnimals = async () => {

@@ -3,26 +3,8 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import AnimalCard from '@/components/animals/AnimalCard';
 // import animals from '@/public/data/animals.json';
 
-// async function getAllAnimals() {
-//   const res = await fetch('https://qurbani-hat-e7bp.vercel.app/data/animals.json', {
-//     cache: 'no-store',
-//   });
-//   if (!res.ok) return [];
-//   return res.json();
-// }
-
-// async function getAllAnimals() {
-//   const res = await fetch('http://localhost:3000/data/animals.json', {
-//     cache: 'no-store',
-//   });
-//   if (!res.ok) return [];
-//   return res.json();
-// }
-
 async function getAllAnimals() {
-  const host = process.env.VERCEL_URL 
-    ? `https://${process.env.VERCEL_URL}` 
-    : 'http://localhost:3000';
+  const host = 'https://qurbani-hat-e7bp.vercel.app';
 
   try {
     const res = await fetch(`${host}/api/animals`, {
@@ -30,16 +12,42 @@ async function getAllAnimals() {
     });
 
     if (!res.ok) {
-      console.error("API Response not OK. Status:", res.status);
+      console.error(`Fetch failed: ${res.status}`);
       return [];
     }
 
-    return await res.json();
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error("Fetch process failed:", error);
+    console.error("Error fetching animals:", error);
     return [];
   }
 }
+
+// async function getAllAnimals() {
+//   const host = process.env.VERCEL_URL 
+//     ? `https://${process.env.VERCEL_URL}` 
+//     : 'http://localhost:3000';
+
+//   console.log("Current Host:", host);
+
+
+//   try {
+//     const res = await fetch(`${host}/api/animals`, {
+//       cache: 'no-store',
+//     });
+
+//     if (!res.ok) {
+//       console.error("API Response not OK. Status:", res.status);
+//       return [];
+//     }
+
+//     return await res.json();
+//   } catch (error) {
+//     console.error("Fetch process failed:", error);
+//     return [];
+//   }
+// }
 
 
 // searchParam ke props hisebe receive kora hocche, jate URL theke query params read kora jai
