@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Link from 'next/link';
 import { GiCow } from 'react-icons/gi';
@@ -12,7 +13,7 @@ const Hero = () => {
 
       {/* Container: max-w-7xl ensuring same alignment as Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-16">
           
           {/* Left Side: Content */}
           <div className="flex-1 text-center lg:text-left space-y-8">
@@ -41,7 +42,7 @@ const Hero = () => {
           </div>
 
           {/* Right Side: Visual Element (Increased Icon Visibility) */}
-          <div className="flex-1 w-full max-w-xl">
+          <div className="flex-1 w-full max-w-xl bg-orange-200/30">
             <div className="relative aspect-square bg-white/40 backdrop-blur-xl border border-white/60 rounded-[50px] shadow-2xl flex items-center justify-center p-12 group overflow-hidden">
               
               {/* Opacity increased from 10 to 40 for better visibility */}
