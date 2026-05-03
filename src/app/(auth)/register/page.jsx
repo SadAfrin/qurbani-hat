@@ -19,14 +19,14 @@ const RegisterPage = () => {
             email: userData.email, 
             password: userData.password, 
             image: userData.image,
-            callbackURL: "/login", // Requirement: Navigate to login after success
+            callbackURL: "/login", 
         });
 
         if (error) {
             toast.error(`Registration Failed: ${error.message}`);
         } else {
             toast.success("Registration Successful! Please login.");
-            router.push("/login"); // Explicitly pushing to login page
+            router.push("/login"); 
         }
     };
 
@@ -34,7 +34,7 @@ const RegisterPage = () => {
         try {
             await authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/", // Requirement: Navigate to Home after social login
+                callbackURL: "/", 
             });
         } catch (err) {
             toast.error("Google Authentication Failed");
@@ -42,7 +42,7 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-[90vh] flex items-center justify-center bg-white px-4">
+        <div className="mt-16 min-h-[calc(100vh-64px)] flex items-center justify-center bg-white px-4">
             <div className="w-full max-w-md bg-orange-100 p-8 rounded-3xl shadow-2xl border border-orange-50 animate__animated animate__fadeInUp">
                 
                 {/* Title */}
