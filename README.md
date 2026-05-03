@@ -1,42 +1,38 @@
+---
+
 # 📋 QurbanirHaT - Livestock Booking Platform
 
-**QurbanirHaT** is a modern and minimalist livestock marketplace where users can explore, sort, and book animals for Qurbani. The platform provides a seamless experience for both buyers and sellers with a futuristic and clean UI.
+**QurbanirHaT** is a modern livestock marketplace built for browsing and booking Qurbani animals. Moving beyond simple local storage, this version features a full-stack architecture with a secure backend and database integration.
 
-### 🌐 [Live URL](https://qurbani-hat.netlify.app/) 
+### 🌐 [Live URL](https://qurbani-hat-e7bp.vercel.app/) | 🎥 [Explanation Video](#)
 
 ---
 
 ### 🚀 Key Features
-*   **Dynamic Animal Display**: View a wide range of premium livestock with detailed information.
-*   **Advanced Sorting**: Sort animals by price (Low to High or High to Low) to find the best deals easily.
-*   **Responsive UI**: Fully optimized for mobile, tablet, and desktop views.
-*   **Smooth Animations**: Integrated with `Animate.css` for an aesthetic and interactive user experience.
-*   **User Profiles**: Dedicated profile section where users can update their information, saved in local storage for now.
-*   **Authentication Ready**: Structure prepared for BetterAuth and MongoDB integration.
+*   **Full-Stack Auth**: Secure registration and login powered by **BetterAuth**, including Google Social Login.
+*   **MongoDB Integration**: Real-time animal data and user profiles managed via **MongoDB Atlas**.
+*   **Dynamic Marketplace**: Browse, view details, and sort animals by price.
+*   **Private Routes**: Protected `/my-profile` and `/details` pages accessible only to logged-in users.
+*   **Profile Management**: Users can update their name and profile image directly via the "Update Information" feature.
+*   **Responsive & Animated**: Fully optimized for all devices with smooth `Animate.css` transitions.
 
 ---
 
-### 🛠️ Tech Stack & NPM Packages
-I have used the following technologies and packages to build this project:
-
-*   **Framework**: [Next.js](https://nextjs.org/) (App Router)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **Icons**: `react-icons`
-*   **Animations**: `animate.css` (Requirement implemented)
-*   **Notifications**: `react-toastify`
-*   **Deployment**: [Netlify](https://www.netlify.com/)
+### 🛠️ Tech Stack
+*   **Frontend**: Next.js (App Router), Tailwind CSS
+*   **Backend & DB**: MongoDB, BetterAuth
+*   **Packages**: `animate.css`, `react-toastify`, `react-icons`
+*   **Deployment**: Vercel
 
 ---
 
-### 📁 Project Structure
-The project follows a clean and modular folder structure:
-*   `/app`: Contains all routes and pages (Animals, Profile, Login).
-*   `/components`: Reusable UI components like `AnimalCard` and `Navbar`.
-*   `/public/data`: Holds the `animals.json` file for mock data.
+### 📁 Core Requirements Implemented
+*   **Environment Variables**: All API keys and Database URIs are secured via Vercel env settings.
+*   **Clean Code**: Modular components and structured `/app` routing for scalability.
 
 ---
 
 ### 💻 How to Run Locally
-1. Clone the repository:
+1. **Clone & Install**:
    ```bash
-   git clone [https://github.com/SadAfrin/qurbani-hat.git]
+   git clone [https://github.com/SadAfrin/qurbani-hat.git](https://github.com/SadAfrin/qurbani-hat.git)
