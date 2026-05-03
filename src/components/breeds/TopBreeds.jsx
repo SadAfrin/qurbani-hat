@@ -56,7 +56,6 @@ const TopBreeds = () => {
                    </span>
                 </div>
                 
-                {/* Origin moved here under the title */}
                 <div className="flex items-center gap-2 mb-4">
                    <span className="w-2 h-2 rounded-full bg-gray-300"></span>
                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">

@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="absolute top-[-10%] left-[-5%] w-72 h-72 bg-orange-200 rounded-full blur-3xl opacity-30"></div>
       <div className="absolute bottom-[-10%] right-[-5%] w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-40"></div>
 
-      {/* Container: max-w-7xl ensuring same alignment as Navbar */}
+      {/* Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-16">
           
@@ -41,7 +41,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Side: Visual Element (Increased Icon Visibility) */}
+          {/* Right Side */}
           <div className="flex-1 w-full max-w-xl bg-orange-200/30">
             <div className="relative aspect-square bg-white/40 backdrop-blur-xl border border-white/60 rounded-[50px] shadow-2xl flex items-center justify-center p-12 group overflow-hidden">
               

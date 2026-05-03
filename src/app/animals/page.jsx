@@ -31,7 +31,6 @@ async function getAllAnimals() {
 export default async function AllAnimalsPage({ searchParams }) {
   const allAnimals = await getAllAnimals();
   
-  // searchParams theke sort order read kora hocche
   const params = await searchParams;
   const sortOrder = params?.sort || '';
 
@@ -40,7 +39,7 @@ export default async function AllAnimalsPage({ searchParams }) {
   if (sortOrder === 'desc') selectedLabel = "Price: High to Low";
 
   const sortedAnimals = [...allAnimals].sort((a, b) => {
-    // price order onujayi animals ke sort kora hocche
+    
     if (sortOrder === 'asc') return a.price - b.price;
     if (sortOrder === 'desc') return b.price - a.price;
     return 0;

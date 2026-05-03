@@ -17,7 +17,7 @@ const UpdateProfile = () => {
     if (!authLoading) {
       if (session?.user) {
         setName(session.user.name || "");
-        setPhoto(session.user.image || ""); // BetterAuth uses 'image' field
+        setPhoto(session.user.image || ""); 
       } else {
         router.push("/login");
       }

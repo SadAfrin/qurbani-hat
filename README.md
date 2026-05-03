@@ -7,7 +7,7 @@
 ---
 
 ### 🚀 Key Features
-*   **Database Integration**: All animal data and user profiles are managed securely via **MongoDB Atlas**.
+*   **Database Integration**: All User profiles are managed securely via **MongoDB Atlas**.
 *   **Secure Authentication**: Supports Google Social Login and Email registration powered by **BetterAuth**.
 *   **User Profiles**: Logged-in users can view and update their Name and Photo-URL via the `/my-profile` route.
 *   **Advanced UI**: Features dynamic price sorting, fully responsive layouts, and **Animate.css** transitions.

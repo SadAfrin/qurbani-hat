@@ -22,7 +22,7 @@ const RegisterPage = () => {
             callbackURL: "/login", 
         });
         await authClient.signOut();
-        
+
         if (error) {
             toast.error(`Registration Failed: ${error.message}`);
         } else {
@@ -46,7 +46,7 @@ const RegisterPage = () => {
         <div className="mt-16 min-h-[calc(100vh-64px)] flex items-center justify-center bg-white px-4">
             <div className="w-full max-w-md bg-orange-100 p-8 rounded-3xl shadow-2xl border border-orange-50 animate__animated animate__fadeInUp">
                 
-                {/* Title */}
+                {/* Header Section */}
                 <div className="text-center mb-8">
                     <h2 className="text-3xl font-black text-gray-800">Register Now</h2>
                     <p className="text-gray-500 text-sm mt-2 font-medium">Create your profile to get started</p>

@@ -6,12 +6,11 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="w-full px-4 py-10">
-      <div className="max-w-7xl mx-auto bg-orange-200/40 backdrop-blur-md rounded-[2.5rem] px-4 py-8 md:px-12 md:py-4">
+      <div className="max-w-7xl mx-auto bg-orange-200/40 backdrop-blur-md rounded-[2.5rem] px-4 py-8 md:px-12 md:py-8">
         
-        {/* Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           
-          {/* 1. Left: Brand Section */}
+          {/* Left */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-5">
             <Link href="/" className="flex items-center gap-2">
               <GiCow size={32} className="text-orange-600" />
@@ -24,7 +23,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* 2. Middle: Contact Info (Always Centered) */}
+          {/* Middle */}
           <div className="flex flex-col items-center text-center space-y-4">
             <h3 className="text-lg font-bold text-gray-800 uppercase tracking-wider">Contact Info</h3>
             <ul className="space-y-2 text-gray-600 text-sm font-medium">
@@ -34,7 +33,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 3. Right: Social Links */}
+          {/* Right*/}
           <div className="flex flex-col items-center md:items-end text-center md:text-right space-y-4">
             <h3 className="text-lg font-bold text-gray-800 uppercase tracking-wider">Social Links</h3>
             <div className="flex gap-4">
