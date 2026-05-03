@@ -2,7 +2,7 @@
 
 **QurbanirHaT** is a minimalist marketplace designed for browsing and booking Qurbani animals. While the initial version utilized local storage, this production-ready application is now fully integrated with **MongoDB** and **BetterAuth** for a robust, database-driven experience.
 
-### 🌐 [Live URL](https://qurbani-hat-e7bp.vercel.app/)
+### 🌐 [Live URL](https://qurbani-hat-ruddy.vercel.app/)
 
 ---
 
