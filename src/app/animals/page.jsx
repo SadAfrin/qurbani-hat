@@ -4,12 +4,21 @@ import AnimalCard from '@/components/animals/AnimalCard';
 // import animals from '@/public/data/animals.json';
 
 async function getAllAnimals() {
-  const res = await fetch(`${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/animals`, {
+  const res = await fetch('https://qurbani-hat-e7bp.vercel.app/data/animals.json', {
     cache: 'no-store',
   });
   if (!res.ok) return [];
   return res.json();
 }
+
+// async function getAllAnimals() {
+//   const res = await fetch('http://localhost:3000/data/animals.json', {
+//     cache: 'no-store',
+//   });
+//   if (!res.ok) return [];
+//   return res.json();
+// }
+
 
 // searchParam ke props hisebe receive kora hocche, jate URL theke query params read kora jai
 export default async function AllAnimalsPage({ searchParams }) {
