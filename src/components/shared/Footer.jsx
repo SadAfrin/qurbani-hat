@@ -6,7 +6,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="w-full px-4 py-10">
-      <div className="max-w-7xl mx-auto bg-orange-200/40 backdrop-blur-md rounded-[2.5rem] px-8 md:p-16">
+      <div className="max-w-7xl mx-auto bg-orange-200/40 backdrop-blur-md rounded-[2.5rem] px-4 py-8 md:px-12 md:py-4">
         
         {/* Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
