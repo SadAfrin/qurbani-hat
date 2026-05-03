@@ -4,7 +4,9 @@ import AnimalCard from '@/components/animals/AnimalCard';
 // import animals from '@/public/data/animals.json';
 
 async function getAllAnimals() {
-  const host = 'https://qurbani-hat-e7bp.vercel.app';
+  // const host = 'https://qurbani-hat-e7bp.vercel.app';
+  const host = 'https://qurbani-hat-ruddy.vercel.app'
+
 
   try {
     const res = await fetch(`${host}/api/animals`, {
@@ -23,31 +25,6 @@ async function getAllAnimals() {
     return [];
   }
 }
-
-// async function getAllAnimals() {
-//   const host = process.env.VERCEL_URL 
-//     ? `https://${process.env.VERCEL_URL}` 
-//     : 'http://localhost:3000';
-
-//   console.log("Current Host:", host);
-
-
-//   try {
-//     const res = await fetch(`${host}/api/animals`, {
-//       cache: 'no-store',
-//     });
-
-//     if (!res.ok) {
-//       console.error("API Response not OK. Status:", res.status);
-//       return [];
-//     }
-
-//     return await res.json();
-//   } catch (error) {
-//     console.error("Fetch process failed:", error);
-//     return [];
-//   }
-// }
 
 
 // searchParam ke props hisebe receive kora hocche, jate URL theke query params read kora jai
