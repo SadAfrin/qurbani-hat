@@ -22,6 +22,7 @@ const RegisterPage = () => {
             callbackURL: "/login", 
         });
         await authClient.signOut();
+        
         if (error) {
             toast.error(`Registration Failed: ${error.message}`);
         } else {
